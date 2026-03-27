@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        margin: 30px;
+      }
+
+      .input-area {
+        margin-bottom: 16px;
+      }
+
+      #textInput {
+        padding: 8px;
+        width: 240px;
+      }
+
+      #addBtn {
+        padding: 8px 12px;
+        cursor: pointer;
+      }
+
+      #container {
+        border: 1px solid #999;
+        padding: 16px;
+        min-height: 120px;
+      }
+
+      .item {
+        background-color: #ffffff;
+        margin-bottom: 10px;
+        padding: 10px 12px;
+        border-radius: 8px;
+      }
+
+      .delete-btn {
+        border: none;
+        background-color: #ff5c5c;
+        color: white;
+        padding: 6px 10px;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+
+      .delete-btn:hover {
+        background-color: #d93636;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="input-area">
+      <input type="text" id="textInput" placeholder="내용을 입력하세요" />
+      <button id="addBtn">추가</button>
+    </div>
+
+    <div id="container"></div>
+
+    <script>
+      const textInput = document.getElementById("textInput");
+      const addBtn = document.getElementById("addBtn");
+      const container = document.getElementById("container");
+
+      function addItem() {
+        const value = textInput.value.trim();
+
+        if (value === "") {
+          alert("값을 입력해주세요.");
+          textInput.focus();
+          return;
+        }
+
+        // 새 아이템 박스 생성
+        const item = document.createElement("div");
+        item.className = "item";
+        container.appendChild(item);
+
+        // 텍스트 영역 생성
+        const text = document.createElement("span");
+        text.textContent = value;
+
+        // 삭제 버튼 생성
+        const deleteBtn = document.createElement("button");
+        deleteBtn.className = "delete-btn";
+        deleteBtn.textContent = "X";
+
+        // 삭제 이벤트
+        deleteBtn.addEventListener("click", function () {
+          item.remove();
+        });
+
+        // 아이템 박스에 텍스트와 버튼 추가
+        item.appendChild(text);
+        item.appendChild(deleteBtn);
+
+        // 컨테이너에 아이템 추가
+        container.appendChild(item);
+
+        // 입력창 초기화 및 포커스
+        textInput.value = "";
+        textInput.focus();
+      }
+
+      // 버튼 클릭 시 추가
+      addBtn.addEventListener("click", addItem);
+
+      // Enter 키로 추가
+      textInput.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+          addItem();
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guestbook</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Georgia, "Times New Roman", serif;
+        background: #f7f4ef;
+        color: #2f2a24;
+      }
+
+      .wrap {
+        max-width: 860px;
+        margin: 48px auto;
+        padding: 0 20px 40px;
+      }
+
+      .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 16px;
+        margin-bottom: 24px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 32px;
+      }
+
+      .sub {
+        margin: 6px 0 0;
+        color: #6e655c;
+      }
+
+      .write-link {
+        display: inline-block;
+        text-decoration: none;
+        background: #3e3126;
+        color: #fff;
+        padding: 11px 16px;
+        border-radius: 10px;
+      }
+
+      .list {
+        display: grid;
+        gap: 14px;
+      }
+
+      .item {
+        background: #fffdf9;
+        border: 1px solid #dfd6ca;
+        border-radius: 14px;
+        padding: 18px 20px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+      }
+
+      .meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 10px;
+      }
+
+      .author {
+        font-weight: 700;
+        font-size: 17px;
+      }
+
+      .date {
+        color: #7b7268;
+        font-size: 13px;
+      }
+
+      .content {
+        margin: 0;
+        line-height: 1.7;
+        white-space: pre-wrap;
+      }
+
+      .delete-form {
+        margin-top: 14px;
+        text-align: right;
+      }
+
+      .delete-btn {
+        border: 0;
+        background: #efe6da;
+        color: #5a4330;
+        border-radius: 8px;
+        padding: 8px 12px;
+        font: inherit;
+        cursor: pointer;
+      }
+
+      .empty {
+        padding: 36px 20px;
+        text-align: center;
+        border: 1px dashed #cbbfaa;
+        border-radius: 14px;
+        color: #6e655c;
+        background: #fffdf9;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="top">
+        <div>
+          <h1>Guestbook</h1>
+        </div>
+        <a class="write-link" href="/guestbook/write">작성하기</a>
+      </div>
+
+      <div class="list">
+        {{#models}}
+        <div class="item">
+          <div class="meta">
+            <div class="author">{{ author }}</div>
+            <div class="date">{{ createdAt }}</div>
+          </div>
+          <p class="content">{{ content }}</p>
+          <form
+            class="delete-form"
+            action="/guestbook/{{ id }}/delete"
+            method="post"
+          >
+            <button class="delete-btn" type="submit">삭제</button>
+          </form>
+        </div>
+        {{/models}}
+      </div>
+
+      {{^models}}
+      <div class="empty">No entries yet. Write the first one.</div>
+      {{/models}}
+    </div>
+  </body>
+</html>
