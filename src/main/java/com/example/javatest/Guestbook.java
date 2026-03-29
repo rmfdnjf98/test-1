@@ -19,10 +19,16 @@ public class Guestbook {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String author;
     private String content;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
 
+    public Guestbook(String author, String content, LocalDateTime createdAt) {
+        this.author = author;
+        this.content = content;
+        this.createdAt = createdAt;
+    }
 }

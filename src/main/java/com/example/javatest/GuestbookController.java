@@ -17,8 +17,7 @@ public class GuestbookController {
 
     @GetMapping("/guestbook")
     public String list(Model model) {
-        List<Guestbook> list = guestbookRepository.findAllOrderByIdDesc();
-        model.addAttribute("models", list);
+        model.addAttribute("list", guestbookRepository.findAllByOrderByCreatedAtDesc());
         return "guestbook-list";
     }
 
@@ -38,8 +37,9 @@ public class GuestbookController {
     }
 
     @PostMapping("/guestbook/{id}/delete")
-    public String delete(@PathVariable("id") Long id) {
+    public String delete(@PathVariable Long id) {
         guestbookRepository.deleteById(id);
         return "redirect:/guestbook";
     }
+
 }
